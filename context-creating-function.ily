@@ -50,7 +50,7 @@ newInstrument =
          (parent-name (if (string=? parent-name "default") "" parent-name))
          (parent-staff-name (string-append parent-name "Staff"))
          (parent-voice-name (string-append parent-name "Voice")))
-    (ly:parser-define! parser '$defaultlayout
+    (ly:parser-define! '$defaultlayout
       #{
         \layout {
           \context {
@@ -84,7 +84,7 @@ newInstrument =
         }
       #})
     ;; UGH! code duplication!
-    (ly:parser-define! parser '$defaultmidi
+    (ly:parser-define! '$defaultmidi
       #{
         \midi {
           \context {
