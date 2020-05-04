@@ -1,0 +1,18 @@
+#
+# openLilyLib/naptaker
+#
+
+name: naptaker
+display-name: Naptaker
+short-description: Engraving Naptaker scores with GNU LilyPond
+description: <
+  TODO: Write description.
+  >
+oll-core: 0.5.0
+maintainers: [
+  Eric Bailey <eric@ericb.me>
+]
+version: 0.4.0
+license: MIT
+website: https://github.com/naptaker/naptaker
+repository: https://github.com/naptaker/naptaker.git
