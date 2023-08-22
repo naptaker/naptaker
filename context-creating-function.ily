@@ -1,6 +1,6 @@
 %%
 
-\version "2.19.10"
+\version "2.24.0"
 
 %{ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DESCRIPTION
 
@@ -40,7 +40,7 @@ define other instruments
 % derived from specified yyyStaff and yyyVoice contexts.
 newInstrument =
 #(define-scheme-function
-  (parser location name staff-settings voice-settings parent-name)
+  (name staff-settings voice-settings parent-name)
   (string?
    (ly:context-mod? #{ \with {} #})
    (ly:context-mod? #{ \with {} #})

@@ -1,19 +1,17 @@
 %%% =========================================================== [ __main__.ily ]
 %%% Description: Naptaker - Engraving Naptaker scores with GNU LilyPond
-%%% Copyright:   (c) 2016-2020 Eric Bailey
+%%% Copyright:   (c) 2016-2023 Eric Bailey
 %%% License:     see LICENSE
 %%% ==================================================================== [ EOH ]
 
-\version "2.19.24"
+\version "2.24.0"
 
 
 %%%=========================================================== [ Paper Config ]
 
 napPaper =
 #(define-void-function
-   (parser location) ()
-   %% (set-default-paper-size "arch a" 'portrait)
-   %% (set-default-paper-size "arch a" 'landscape)
+   () ()
    (set-default-paper-size
     #{ \getOption naptaker.paper-size #}
     #{ \getOption naptaker.paper-orientation #})
@@ -33,7 +31,7 @@ napPaper =
 
 templateInit =
 #(define-void-function
-   (parser location parts segments) (list? list?)
+   (parts segments) (list? list?)
    (ly:debug "===> Initializing template")
    (ly:debug (format #f " --> parts: ~{~a ~}" parts))
    (ly:debug (format #f " --> segment lengths: ~{~a ~}" segments))
@@ -63,7 +61,7 @@ templateInit =
 
 napChords =
 #(define-music-function
-   (parser location) ()
+   () ()
    (if (part-missing? "chords")
        (begin (ly:debug "No chords set") #{ #})
        #{
@@ -90,7 +88,7 @@ napChords =
 
 colorLyrics =
 #(define-music-function
-   (parser location color) (list?)
+   (color) (list?)
    #{
      \override Lyrics.LyricText.color = $color
      \override Lyrics.LyricText.font-series = #'bold
@@ -101,13 +99,13 @@ colorLyrics =
 
 stanza =
 #(define-music-function
-   (parser location n) (number?)
+   (n) (number?)
    #{ \set stanza = #(format #f "~d. " n) #})
 
 
 napVox =
 #(define-music-function
-   (parser location) ()
+   () ()
    (if (part-missing? "vox")
        (begin (ly:debug "No vox") #{ #})
        #{
@@ -127,7 +125,7 @@ napVox =
 
 napGuitarStrum =
 #(define-music-function
-   (parser location) ()
+   () ()
    (cond
     ((part-missing? "guitar strum")
      (begin (ly:debug "No guitar strum part set") #{ #}))
@@ -162,7 +160,7 @@ napGuitarStrum =
 
 napGuitarTab =
 #(define-music-function
-   (parser location) ()
+   () ()
    #{
      \new TabStaff \with {
        stringTunings       = \getOption naptaker.guitar-tuning
@@ -185,7 +183,7 @@ napGuitarTab =
 %% respective functions
 napGuitar =
 #(define-music-function
-   (parser location) ()
+   () ()
    (if (part-missing? "guitar")
        (begin (ly:debug "No guitar part") #{ #})
        #{
@@ -212,7 +210,7 @@ napGuitar =
 
 napBass =
 #(define-music-function
-   (parser location) ()
+   () ()
    (if (part-missing? "bass")
         (begin (ly:debug "No bass part") #{ #})
         (if (and (part-missing? "vox") (part-missing? "guitar"))
@@ -232,25 +230,25 @@ napBass =
 %% NOTE: http://web.mit.edu/merolish/Public/drums.pdf
 #(define preston-drums
    (alist->hash-table
-    '((ridecymbal    cross   #f          4)
-      (crashcymbal   cross   #f          6)
-      (splashcymbal  cross   #f          7)
-      (hihat         cross   "stopped"   5)
-      (closedhihat   cross   "stopped"   5)
-      (openhihat     cross   "open"      5)
-      (halfopenhihat cross   "halfopen"  5)
-      (pedalhihat    cross   #f         -5)
-      (snare         default #f          1)
-      (sidestick     cross   #f          1)
-      (hightom       default #f          3)
-      (lowmidtom     default #f          0)
-      (lowtom        default #f         -1)
-      (bassdrum      default #f         -3))))
+    '((ridecymbal    cross   #f        4)
+      (crashcymbal   cross   #f        6)
+      (splashcymbal  cross   #f        7)
+      (hihat         cross   stopped   5)
+      (closedhihat   cross   stopped   5)
+      (openhihat     cross   open      5)
+      (halfopenhihat cross   halfopen  5)
+      (pedalhihat    cross   #f       -5)
+      (snare         default #f        1)
+      (sidestick     cross   #f        1)
+      (hightom       default #f        3)
+      (lowmidtom     default #f        0)
+      (lowtom        default #f       -1)
+      (bassdrum      default #f       -3))))
 
 
 napDrums =
 #(define-music-function
-   (parser location) ()
+   () ()
    (cond
     ((part-missing? "drums up")
      (begin #(ly:debug "No drums up part set") #{ #}))
@@ -263,7 +261,7 @@ napDrums =
          instrumentName = "Drums"
          %% shortInstrumentName = "D"
          \RemoveEmptyStaves
-         \override VerticalAxisGroup #'remove-first = ##t
+         \override VerticalAxisGroup.remove-first = ##t
        } {
          <<
            \new DrumVoice { \voiceOne \gridGetMusic "drums up" }
@@ -282,7 +280,7 @@ napDrums =
 
 napIncludes =
 #(define-void-function
-    (parser location) ()
+    () ()
     #{ \include "parts/meta.ily" #}
     (if (not (part-missing? "vox"))
         #{ \include "parts/vox.ily" #})

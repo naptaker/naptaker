@@ -1,10 +1,10 @@
 %%% =========================================================== [ preamble.ily ]
 %%% Description: Naptaker - Engraving Naptaker scores with GNU LilyPond
-%%% Copyright:   (c) 2016-2020 Eric Bailey
+%%% Copyright:   (c) 2016-2023 Eric Bailey
 %%% License:     see LICENSE
 %%% ==================================================================== [ EOH ]
 
-\version "2.19.24"
+\version "2.24.0"
 
 fuzzOn     = \set midiInstrument = #"overdriven guitar"
 
@@ -82,7 +82,7 @@ restartStaff = {
 
 
 gridGetCellMusic =
-#(define-music-function (parser location part segment) (string? number?)
+#(define-music-function (part segment) (string? number?)
    (check-grid)
    (check-coords part segment)
    (cell:music (get-music-cell part segment)))
@@ -105,7 +105,7 @@ drag = \drummode {
 
 
 bye =
-#(define-music-function (parser location) ()
+#(define-music-function () ()
    #{
      \stopStaff \hideNotes
      \omit Staff.Rest \omit Staff.MultiMeasureRest
@@ -117,7 +117,7 @@ bye =
 
 
 hi =
-#(define-music-function (parser location) ()
+#(define-music-function () ()
    #{
      \startStaff \unHideNotes
      \undo \omit Staff.Rest \undo \omit Staff.MultiMeasureRest

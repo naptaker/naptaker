@@ -1,10 +1,10 @@
 %%% ===================================== [ instrument-context-definitions.ily ]
 %%% Description: Naptaker - Engraving Naptaker scores with GNU LilyPond
-%%% Copyright:   (c) 2016-2020 Eric Bailey
+%%% Copyright:   (c) 2016-2023 Eric Bailey
 %%% License:     see LICENSE
 %%% ==================================================================== [ EOH ]
 
-\version "2.19.24"
+\version "2.24.0"
 
 \include "context-creating-function.ily"
 
@@ -16,7 +16,7 @@
   instrumentName = "Vocals"
   %% shortInstrumentName = "V"
   \RemoveEmptyStaves
-  \override VerticalAxisGroup #'remove-first = ##t
+  \override VerticalAxisGroup.remove-first = ##t
   \clef F
 }
 \with {
@@ -33,8 +33,8 @@
   instrumentName = "Guitar"
   %% shortInstrumentName = "G"
   \RemoveEmptyStaves
-  \override VerticalAxisGroup #'remove-first = ##t
-  \override StringNumber      #'stencil      = ##f
+  \override VerticalAxisGroup.remove-first = ##t
+  \override StringNumber.stencil      = ##f
   \clef "treble_8"
 }
 \with {
@@ -53,8 +53,8 @@
   instrumentName = "Bass"
   %% shortInstrumentName = "B"
   \RemoveEmptyStaves
-  \override VerticalAxisGroup #'remove-first = ##t
-  \override StringNumber      #'stencil      = ##f
+  \override VerticalAxisGroup.remove-first = ##t
+  \override StringNumber.stencil      = ##f
   \clef "bass_8"
 }
 \with {
