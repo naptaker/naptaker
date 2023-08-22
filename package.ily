@@ -1,10 +1,10 @@
 %%% ============================================================ [ package.ily ]
 %%% Description: Naptaker - Engraving Naptaker scores with GNU LilyPond
-%%% Copyright:   (c) 2016-2020 Eric Bailey
+%%% Copyright:   (c) 2016-2023 Eric Bailey
 %%% License:     see LICENSE
 %%% ==================================================================== [ EOH ]
 
-\version "2.19.24"
+\version "2.24.0"
 
 \include "oll-core/package.ily"
 
