@@ -14,6 +14,8 @@
 \registerOption naptaker.guitar-tabs ##f
 \registerOption naptaker.guitar-tuning #guitar-open-d-tuning
 
+\registerOption naptaker.bass-tabs ##f
+
 \registerOption naptaker.paper-orientation #'landscape
 \registerOption naptaker.paper-size #"letter"
 

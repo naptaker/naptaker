@@ -199,30 +199,56 @@ napGuitar =
                 #{
                   \new GuitarVoice = gtr { \gridGetMusic "guitar" }
                 #})
-         #(if #{ \getOption naptaker.guitar-tabs #}
-              #{ \napGuitarTab #}
-              #{ #})
-       >>
-     #}))
+           #(if #{ \getOption naptaker.guitar-tabs #}
+                #{ \napGuitarTab #}
+                #{ #})
+         >>
+       #}))
 
 
 %%% =================================================================== [ Bass ]
+
+napBassTab =
+#(define-music-function
+   () ()
+   #{
+     \new TabStaff \with {
+       stringTunings       = #bass-tuning
+       restrainOpenStrings = ##t
+       \RemoveEmptyStaves
+       \override VerticalAxisGroup.remove-first = ##t
+       \remove "Staff_performer"
+       \omit PercentRepeatCounter
+       \omit DoublePercentRepeatCounter
+     } {
+       %% \tabFullNotation
+       \gridGetMusic "bass"
+     }
+   #})
+
 
 napBass =
 #(define-music-function
    () ()
    (if (part-missing? "bass")
-        (begin (ly:debug "No bass part") #{ #})
-        (if (and (part-missing? "vox") (part-missing? "guitar"))
-            #{
-              \new BassVoice = bass <<
-                { \gridGetMusic "meta" }
-                { \gridGetMusic "bass"  }
-              >>
-            #}
-            #{
-              \new BassVoice = bass \gridGetMusic "bass"
-            #})))
+       (begin (ly:debug "No bass part") #{ #})
+       #{
+         \new StaffGroup <<
+           #(if (and (part-missing? "vox") (part-missing? "guitar"))
+                #{
+                  \new BassVoice = bass <<
+                    { \gridGetMusic "meta" }
+                    { \gridGetMusic "bass"  }
+                  >>
+                #}
+                #{
+                  \new BassVoice = bass \gridGetMusic "bass"
+                #})
+           #(if #{ \getOption naptaker.bass-tabs #}
+                #{ \napBassTab #}
+                #{ #})
+         >>
+       #}))
 
 
 %%% ================================================================== [ Drums ]
